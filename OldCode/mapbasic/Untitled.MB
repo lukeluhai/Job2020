@@ -1,0 +1,46 @@
+include "mapbasic.def"
+include "MENU.DEF"
+define MYDIR "e:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+DIM I AS INTEGER
+dim length_g as float
+dim length_d as float
+dim obj_temp as object
+Dim  mi  As Object
+dim obj_temp1 as object
+dim obj_temp2 as object
+dim fff as string 
+DIM FILEN AS STRING
+DIM FLAG AS INTEGER
+FOR I=1 TO LEN(FFF)
+NEXT
+
+
+
+
+Run Menu Command M_FILE_OPEN
+
+fff=TableInfo(1,TAB_INFO_TABFILE)
+FOR I=1 TO LEN(FFF)
+
+IF (MID$(FFF,I,1)="\") THEN
+FLAG=I
+END IF
+
+NEXT
+note fff
+NOTE FLAG
+
+FILEN=MID$(FFF,FLAG+1,LEN(FFF)-FLAG+1)
+NOTE FILEN
+
+
+
+
+
+
+
+end sub

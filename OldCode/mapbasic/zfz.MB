@@ -1,0 +1,49 @@
+include "mapbasic.def"
+
+define MYDIR "E:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+	dim length_g as float
+     dim length_d as float
+	dim obj_temp as object
+dim obj_temp1 as object
+dim obj_temp2 as object
+
+	dim rowno,color as integer
+
+	close all
+
+
+
+	register table MYDIR+"zfz2.dbf"
+
+		type "dbf"
+
+		into MYDIR+"zfz2.dbf"
+
+	open table MYDIR+"zfz2.dbf"
+
+	browse * from zfz2
+open table mydir+"street.tab"
+
+	map  from street
+
+
+
+	create map for zfz2
+	add map layer zfz2
+
+
+
+	for rowno=2 to tableinfo(zfz2,tab_info_nrows)
+	fetch rec rowno from zfz2
+
+
+
+	Create point Into Variable obj_temp (zfz2.¾­¶È,zfz2.Î³¶È) Symbol(63,RED,10)
+		update zfz2 set obj=obj_temp where RowID=rowno
+	next
+
+end sub

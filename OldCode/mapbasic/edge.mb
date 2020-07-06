@@ -1,0 +1,56 @@
+include "mapbasic.def"
+
+define MYDIR "d:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+	dim length_g as float
+     dim length_d as float
+	dim obj_temp as object
+dim obj_temp1 as object
+dim obj_temp2 as object
+
+	dim rowno,color as integer
+
+	close all
+
+
+
+	register table MYDIR+"yfpc.xls"
+		type "xls" Titles RANGE  "a2:ar2000"
+
+		into MYDIR+"yfpc.xls"
+	open table MYDIR+"yfpc.xls"
+
+	browse * from yfpc
+open table mydir+"street.tab"
+
+	map  from street
+
+
+
+	create map for yfpc
+	add map layer yfpc
+
+
+
+	for rowno=2 to tableinfo(yfpc,tab_info_nrows)
+	fetch rec rowno from yfpc
+
+
+if yfpc.col19>-70 then
+
+	Create point Into Variable obj_temp (yfpc.col6,yfpc.col7) Symbol(32,yellow,5)
+		
+elseif yfpc.col19<-70 and yfpc.col19>-80 then
+
+Create point Into Variable obj_temp (yfpc.col6,yfpc.col7) Symbol(32,red,5)
+
+end if
+
+update yfpc set obj=obj_temp where RowID=rowno
+	
+next
+
+end sub

@@ -1,0 +1,73 @@
+include "mapbasic.def"
+
+define MYDIR "D:\mapbasic\interfere\Í¼²ã\"
+
+Declare sub main
+
+sub main
+
+dim obj_temp as object
+
+
+dim rowno,color,aa as integer
+
+close all
+
+
+register table MYDIR+"ALL_SITE.xls"
+type "xls"  Titles RANGE  "a2:m1020"
+into MYDIR+"ALL_SITE.xls"
+
+open table MYDIR+"ALL_SITE.xls"
+
+browse * from ALL_SITE ROW 2
+open table mydir+"street.tab"
+
+	map from street
+
+
+
+	create map for ALL_SITE
+	add map layer ALL_SITE
+
+	for rowno=1 to tableinfo(ALL_SITE,tab_info_nrows)
+	fetch rec rowno from ALL_SITE
+	
+if ALL_SITE.col7=200 then
+			Create Region Into Variable obj_temp 1 3
+
+
+
+(val(ALL_SITE.COL3),val(ALL_SITE.COL4))
+ (val(ALL_SITE.COL3)+0.0015*sin((val(ALL_SITE.COL5))*DEG_2_RAD),val(ALL_SITE.COL4)+0.0015*cos((val(ALL_SITE.COL5))*deg_2_rad))
+PEN makepen(4,1,blue)
+ Brush(02, blue, RED)
+else
+
+			Create Region Into Variable obj_temp 1 3
+
+
+
+(VAL(ALL_SITE.COL3),VAL(ALL_SITE.COL4))
+ (val(ALL_SITE.COL3)+0.003*sin((val(ALL_SITE.COL5)+15)*DEG_2_RAD),val(ALL_SITE.COL4)+0.003*cos((val(ALL_SITE.COL5)+15)*deg_2_rad))
+(val(ALL_SITE.COL3)+0.003*sin((val(ALL_SITE.COL5)-15)*DEG_2_RAD),val(ALL_SITE.COL4)+0.003*cos((val(ALL_SITE.COL5)-15)*deg_2_rad)) 
+PEN makepen(4,1,blue)
+ Brush(02, blue, RED)
+end if
+
+				update ALL_SITE set obj=obj_temp where RowID=rowno
+
+
+
+
+
+
+
+
+
+
+	next
+
+
+
+end sub

@@ -1,0 +1,73 @@
+include "mapbasic.def"
+
+define MYDIR "D:\mapbasic\interfere\Í¼²ã\"
+
+Declare sub main
+
+sub main
+
+dim obj_temp as object
+dim r_R ,d_D as float
+r_r=0.0015
+d_D=30/2
+
+dim rowno,color,aa as integer
+
+close all
+
+note "1"
+register table MYDIR+"ALL_SITE.xls"
+
+type "xls"  Titles RANGE  "a2:O3903"
+
+into MYDIR+"ALL_SITE.xls"
+note "13"
+open table MYDIR+"ALL_SITE.xls"
+
+browse * from ALL_SITE ROW 2
+open table mydir+"street.tab"
+
+	map from street
+
+
+
+	create map for ALL_SITE
+	add map layer ALL_SITE
+
+	for rowno=1 to tableinfo(ALL_SITE,tab_info_nrows)
+	fetch rec rowno from ALL_SITE
+	
+
+	
+	
+	
+	
+
+
+			Create Region Into Variable obj_temp 1 3
+
+
+
+(ALL_SITE.COL3,ALL_SITE.COL4)
+ (ALL_SITE.COL3+r_R*sin((ALL_SITE.COL5+d_D)*DEG_2_RAD),ALL_SITE.COL4+r_R*cos((ALL_SITE.COL5+d_D)*deg_2_rad))
+(ALL_SITE.COL3+r_R*sin((ALL_SITE.COL5-d_D)*DEG_2_RAD),ALL_SITE.COL4+r_R*cos((ALL_SITE.COL5-d_D)*deg_2_rad)) 
+PEN makepen(4,1,blue)
+ Brush(02, blue, RED)
+
+
+				update ALL_SITE set obj=obj_temp where RowID=rowno
+
+
+
+
+
+
+
+
+
+
+	next
+
+
+
+end sub

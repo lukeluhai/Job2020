@@ -1,0 +1,80 @@
+include "mapbasic.def"
+
+define MYDIR "d:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+	dim length_g as float
+     dim length_d as float
+	dim obj_temp as object
+dim obj_temp1 as object
+dim obj_temp2 as object
+dim aaa as float
+	dim rowno,color,aa as integer
+
+	close all
+
+
+
+	register table MYDIR+"half0526.xls"
+
+		type "xls"
+
+		into MYDIR+"half0526.xls"
+
+	open table MYDIR+"half0526.xls"
+
+	browse * from half0526
+open table mydir+"street.tab"
+
+	map  from street
+
+
+
+	create map for half0526
+	add map layer half0526
+
+
+
+	for rowno=2 to tableinfo(half0526,tab_info_nrows)
+	fetch rec rowno from half0526
+	
+
+	if val(half0526.n)>20 then
+			Create line Into Variable obj_temp (val(half0526.c),val(half0526.d)) (val(half0526.c)+0.0015*sin(val(half0526.e)*DEG_2_RAD),val(half0526.d)+0.0015*cos(val(half0526.e)*deg_2_rad)) PEN makepen(4,2,black)
+
+				update half0526 set obj=obj_temp where RowID=rowno
+	elseif val(half0526.n)>15 and val(half0526.n)<=20 then
+	
+			Create line Into Variable obj_temp (val(half0526.c),val(half0526.d)) (val(half0526.c)+0.0015*sin(val(half0526.e)*DEG_2_RAD),val(half0526.d)+0.0015*cos(val(half0526.e)*deg_2_rad)) PEN makepen(4,2,red)
+
+				update half0526 set obj=obj_temp where RowID=rowno
+	elseif 	val(half0526.n)>10 and val(half0526.n)<=15 then
+		
+Create line Into Variable obj_temp (val(half0526.c),val(half0526.d)) (val(half0526.c)+0.0015*sin(val(half0526.e)*DEG_2_RAD),val(half0526.d)+0.0015*cos(val(half0526.e)*deg_2_rad)) PEN makepen(4,2,yellow)
+
+				update half0526 set obj=obj_temp where RowID=rowno
+elseif 	val(half0526.n)>5 and val(half0526.n)<=10 then
+
+	Create line Into Variable obj_temp (val(half0526.c),val(half0526.d)) (val(half0526.c)+0.0015*sin(val(half0526.e)*DEG_2_RAD),val(half0526.d)+0.0015*cos(val(half0526.e)*deg_2_rad)) PEN makepen(4,2,blue)
+
+				update half0526 set obj=obj_temp where RowID=rowno
+
+elseif 	val(half0526.n)>=0 and val(half0526.n)<=5 then
+aaa=val(half0526.c)
+Create line Into Variable obj_temp (val(half0526.c),val(half0526.d)) (val(half0526.c)+0.0015*sin(val(half0526.e)*DEG_2_RAD),val(half0526.d)+0.0015*cos(val(half0526.e)*deg_2_rad)) PEN makepen(4,2,green)
+
+				update half0526 set obj=obj_temp where RowID=rowno
+end if
+
+
+
+
+
+
+
+
+	next
+
+end sub

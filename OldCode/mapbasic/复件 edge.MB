@@ -1,0 +1,52 @@
+include "mapbasic.def"
+
+define MYDIR "d:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+	dim length_g as float
+     dim length_d as float
+	dim obj_temp as object
+dim obj_temp1 as object
+dim obj_temp2 as object
+
+	dim rowno,color as integer
+
+	close all
+
+
+
+	register table MYDIR+"ant.dbf"
+
+		type "dbf"
+
+		into MYDIR+"ant.dbf"
+
+	open table MYDIR+"ant.dbf"
+
+	browse * from ant
+open table mydir+"street.tab"
+
+	map  from street
+
+
+
+	create map for ant
+	add map layer ant
+
+
+
+	for rowno=2 to tableinfo(ant,tab_info_nrows)
+	fetch rec rowno from ant
+
+
+
+
+	Create line Into Variable obj_temp (ant.lon,ant.lat) (ant.lon2,ant.lat2) PEN makepen(2,2,red)
+			update ant set obj=obj_temp where RowID=rowno
+
+
+	next
+
+end sub

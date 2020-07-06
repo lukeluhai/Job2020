@@ -1,0 +1,115 @@
+include "mapbasic.def"
+
+define MYDIR "d:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+	dim length_g as float
+     dim length_d as float
+	dim obj_temp as object
+dim obj_temp1 as object
+dim obj_temp2 as object
+
+	dim rowno,color as integer
+
+	close all
+
+
+
+	register table MYDIR+"bdw.dbf"
+		type "dbf"
+		into MYDIR+"bdw.dbf"
+	open table MYDIR+"bdw.dbf"
+	register table MYDIR+"bdw2.dbf"
+		type "dbf"
+		into MYDIR+"bdw2.dbf"
+	open table MYDIR+"bdw2.dbf"
+
+
+	browse * from bdw
+	browse * from bdw2
+open table mydir+"street.tab"
+
+	map  from street
+
+
+
+	create map for bdw
+create map for bdw2
+	add map layer bdw,bdw2
+
+
+
+	for rowno=2 to tableinfo(bdw,tab_info_nrows)
+	fetch rec rowno from bdw
+
+
+if rowno mod 7 =0 then
+
+if int(bdw.rxlevsub)<>0 then
+
+if int(bdw.rxlevsub)>=-75 then
+	Create point Into Variable obj_temp (bdw.longitude,bdw.latitude) Symbol(56,green,5)
+		update bdw set obj=obj_temp where RowID=rowno
+end if
+if int(bdw.rxlevsub)<-75 and int(bdw.rxlevsub)>=-85 then
+	Create point Into Variable obj_temp (bdw.longitude,bdw.latitude) Symbol(56,blue,5)
+		update bdw set obj=obj_temp where RowID=rowno
+end if
+if int(bdw.rxlevsub)<-85 and int(bdw.rxlevsub)>=-94 then
+	Create point Into Variable obj_temp (bdw.longitude,bdw.latitude) Symbol(56,yellow,5)
+		update bdw set obj=obj_temp where RowID=rowno
+end if
+
+if int(bdw.rxlevsub)<-94 and int(bdw.rxlevsub)>=-120 then
+	Create point Into Variable obj_temp (bdw.longitude,bdw.latitude) Symbol(56,red,5)
+		update bdw set obj=obj_temp where RowID=rowno
+end if
+
+end if
+
+
+
+end if
+
+	next
+
+
+	for rowno=2 to tableinfo(bdw2,tab_info_nrows)
+	fetch rec rowno from bdw2
+
+
+if rowno mod 7 =0 then
+
+if int(bdw2.rxqualsub)>=0 and int(bdw2.rxqualsub) <=3 then
+
+	Create point Into Variable obj_temp (bdw2.longitude,bdw2.latitude) Symbol(56,green,5)
+		update bdw2 set obj=obj_temp where RowID=rowno
+
+end if
+
+if int(bdw2.rxqualsub)>=4 and int(bdw2.rxqualsub) <=5 then
+
+	Create point Into Variable obj_temp (bdw2.longitude,bdw2.latitude) Symbol(56,blue,5)
+		update bdw2 set obj=obj_temp where RowID=rowno
+
+end if
+
+
+if int(bdw2.rxqualsub)>=6 and int(bdw2.rxqualsub) <=7 then
+
+	Create point Into Variable obj_temp (bdw2.longitude,bdw2.latitude) Symbol(56,red,5)
+		update bdw2 set obj=obj_temp where RowID=rowno
+
+end if
+
+
+end if
+
+	next
+
+
+
+
+end sub

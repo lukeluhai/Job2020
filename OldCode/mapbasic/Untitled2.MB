@@ -1,0 +1,11 @@
+DIM rowno AS INTEGER
+DIM AA AS OBJECT
+Open Table "D:\SG\mcom\XZC.TAB" Interactive
+Add Map Auto Layer XZC
+
+for rowno=2 to tableinfo(XZC,tab_info_nrows)
+	fetch rec rowno from XZC
+
+'	XZC.LON=CentroidY(XZC.OBJ)
+
+NEXT

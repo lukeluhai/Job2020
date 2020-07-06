@@ -1,0 +1,81 @@
+include "mapbasic.def"
+
+define MYDIR "d:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+	dim length_g as float
+     dim length_d as float
+	dim obj_temp as object
+dim obj_temp1 as object
+dim obj_temp2 as object
+
+	dim rowno,color as integer
+
+	close all
+
+
+
+	register table MYDIR+"cdm.dbf"
+		type "dbf"
+		into MYDIR+"cdm.dbf"
+	open table MYDIR+"cdm.dbf"
+
+
+
+	browse * from cdm
+	
+open table mydir+"street.tab"
+
+	map  from street
+
+
+
+	create map for cdm
+
+	add map layer cdm
+
+
+
+	for rowno=6 to tableinfo(cdm,tab_info_nrows)
+	fetch rec rowno from cdm
+dim lor as integer
+lor=rgb(84,84,84)
+if rowno mod 7 =0 then
+
+if int(val(cdm.col13))<>0 then
+
+if int(val(cdm.col13))>=-9 then
+	Create point Into Variable obj_temp (cdm.col2,cdm.col3) Symbol(56,green,5)
+		update cdm set obj=obj_temp where RowID=rowno
+end if
+if int(val(cdm.col13))<-9 and int(val(cdm.col13))>=-12 then
+	Create point Into Variable obj_temp (cdm.col2,cdm.col3) Symbol(56,red,5)
+		update cdm set obj=obj_temp where RowID=rowno
+end if
+if int(val(cdm.col13))<-12 and int(val(cdm.col13))>=-15 then
+	Create point Into Variable obj_temp (cdm.col2,cdm.col3) Symbol(56,5526612,5)
+		update cdm set obj=obj_temp where RowID=rowno
+end if
+
+if int(val(cdm.col13))<-15 and int(val(cdm.col13))>=-36 then
+	Create point Into Variable obj_temp (cdm.col2,cdm.col3) Symbol(56,black,5)
+		update cdm set obj=obj_temp where RowID=rowno
+end if
+
+end if
+
+
+
+end if
+
+	next
+
+
+
+
+
+
+
+end sub

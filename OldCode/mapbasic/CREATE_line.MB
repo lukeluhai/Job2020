@@ -1,0 +1,60 @@
+include "mapbasic.def"
+
+define MYDIR "E:\mapbasic\interfere\"
+
+Declare sub main
+
+sub main
+
+dim obj_temp as object
+
+
+dim rowno,color,aa as integer
+
+close all
+
+
+register table MYDIR+"cell.xls"
+type "xls"  Titles RANGE  "a2:e9659"
+into MYDIR+"cell.xls"
+
+open table MYDIR+"cell.xls"
+
+browse * from cell ROW 2
+open table mydir+"street.tab"
+
+	map from street
+
+
+
+	create map for cell
+	add map layer cell
+
+	for rowno=1 to tableinfo(cell,tab_info_nrows)
+	fetch rec rowno from cell
+	
+
+			Create LINE Into Variable obj_temp 
+(cell.COL3,cell.COL4)
+ (cell.COL3+0.0015*sin((cell.COL5)*DEG_2_RAD),cell.COL4+0.0015*cos((cell.COL5)*deg_2_rad))
+
+
+
+
+
+				update cell set obj=obj_temp where RowID=rowno
+
+
+
+
+
+
+
+
+
+
+	next
+
+
+
+end sub
