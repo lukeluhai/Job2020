@@ -19,4 +19,5 @@ g.close()
 h=open('E:\\temp\\感知差小区\\Allrelation_.csv','a')
 h.writelines(result)
 h.close()
+#####
 

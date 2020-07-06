@@ -75,3 +75,4 @@ for x,y in cell.items():
         offstr=poweroffset[x][0]+','+poweroffset[x][1][1]+','+poweroffset[x][1][0]
     g.writelines(x+','+y+','+faultstr+','+offstr+'\n')
 g.close()
+#
