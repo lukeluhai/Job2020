@@ -11,7 +11,7 @@ while True:
         result=[]
         print('---------------------------------------------------------------')
         for dataFile in filePath:
-            f=open(defaultPath+dataFile,'r',encoding='gbk')
+            f=open(defaultPath+dataFile,'r',encoding='utf-16')
             #f=open('E:\\temp\\基础信息\\查询表\\'+dataFile,'r',encoding='utf-16')
             print(f.__next__().split('\t'))
             for line in f.readlines():
