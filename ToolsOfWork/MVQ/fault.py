@@ -1,5 +1,5 @@
 cell={}
-f=open('E:\\temp\\工单回复\\数据\\CELL.csv','r')
+f=open('E:\\temp\\频发差小区\\MVQ\\CELL.csv','r')
 for i in f.readlines():
     n=i.replace('\n','').split(',')
     cell[n[0]]=n[3]
@@ -9,7 +9,7 @@ print(cell)
 cell2={}
 fault1={}
 fault2={}
-f=open('E:\\temp\\工单回复\\数据\\附近小区集.csv','r')
+f=open('E:\\temp\\频发差小区\\MVQ\\附近小区集.csv','r')
 for i in f.readlines():
     n=i.replace('\n','').split(',')
     if n[0] in cell and n[14]=='是':
@@ -25,7 +25,7 @@ for i in f.readlines():
 f.close()
 print(cell2)
 
-f=open("E:\\temp\\工单回复\\数据\\ALX告警.csv",'r')
+f=open("E:\\temp\\频发差小区\\MVQ\\ALX告警.csv",'r')
 for i in f.readlines():
     n=i.replace('\n','').split(',')
     if n[3] in fault1:
@@ -37,7 +37,7 @@ f.close()
 # print(fault1)
 # print(fault2)
 
-f=open("E:\\temp\\工单回复\\数据\\ZX告警.csv",'r')
+f=open("E:\\temp\\频发差小区\\MVQ\\ZX告警.csv",'r')
 for i in f.readlines():
     n=i.replace('\n','').split(',')
     if n[8] in fault1:
@@ -65,7 +65,7 @@ print(faultset)
 print(poweroffset)
 
 
-g=open('E:\\temp\\工单回复\\数据\\faultandoff.csv','w')
+g=open('E:\\temp\\频发差小区\\MVQ\\faultandoff.csv','w')
 for x,y in cell.items():
     faultstr=',,'
     offstr=',,'
