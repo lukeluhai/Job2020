@@ -1,6 +1,6 @@
 import os
 
-f=open('E:\\KanKan\\VaCache\\aa.txt','w',encoding='utf-8')
+f=open('F:\\1需要打印\\aa.txt','w',encoding='utf-8')
 
 def printFile(path,name):
     if os.path.isfile(path+'\\'+name):
@@ -10,5 +10,5 @@ def printFile(path,name):
         for i in os.listdir(path+'\\'+name):
             printFile(path+'\\'+name,i)
     return
-printFile(r'E:\KanKan\VaCache\movie','潘多拉')
+printFile(r'F:','1需要打印')
 f.close()
