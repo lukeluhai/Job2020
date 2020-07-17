@@ -1,17 +1,12 @@
-f=open('E:\\temp\\d.txt','r')
+# import os
+# file=os.listdir('E:\\temp\\')
+# for i in file:
+#     if 'csv' in i: 
+#         f=open('e:\\temp\\'+i,'r',encoding='utf-8')
+#         k=f.readlines()
+
+f=open('e:\\temp\\1108LTE关键指标.csv','rb')
 for i in f.readlines():
-    j=i.replace('\n','').split(',')
-    if j[1]=="":
-        continue
-    a=len(j)
-    #print(j)
-    bb=map(lambda x:int(x),j[1:])
-    #print(list(bb))
-    b=map(lambda x:int(x)+1,j[1:])
-    c=list(bb)+list(b)
-    #print(c)
-    d=len(set(c))
-   # print(a,b)
-    #print(d,a)
-    if d!=(a-1)*2:
-        print(j[0])
+    print(i.decode('utf-8','ignore'))
+
+        

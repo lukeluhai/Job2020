@@ -1,3 +1,4 @@
+import chardet
 import os
 defaultPath='E:\\temp\\基础信息\\查询表\\'
 # 'E:\\temp\基础信息\\'
@@ -11,12 +12,29 @@ while True:
         result=[]
         print('---------------------------------------------------------------')
         for dataFile in filePath:
-            f=open(defaultPath+dataFile,'r',encoding='utf-16')
+            print(filePath)
+            f=open(defaultPath+dataFile,'rb')
+            #f.__next__()
+
+            file_coding=chardet.detect(f.__next__())
+            
+            
+            print(file_coding)
+           
+
+            if file_coding['encoding']=='GB2312':
+                coding='gb18030'
+            else:
+                coding=file_coding['encoding']
+            
+            f.close()
+            f=open(defaultPath+dataFile,'r',encoding=coding)
             #f=open('E:\\temp\\基础信息\\查询表\\'+dataFile,'r',encoding='utf-16')
-            print(f.__next__().split('\t'))
+            print(f.__next__())
             for line in f.readlines():
                 if seekStr in line:
-                    print(line.split('\t'))
+                    print(line)
+            f.close()
         print(result)
 
 
