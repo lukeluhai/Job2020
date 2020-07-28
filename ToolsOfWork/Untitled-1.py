@@ -6,7 +6,6 @@
 #         k=f.readlines()
 
 f=open('e:\\temp\\1108LTE关键指标.csv','rb')
-for i in f.readlines():
-    print(i.decode('utf-8','ignore'))
+print(f.readlines())
 
         

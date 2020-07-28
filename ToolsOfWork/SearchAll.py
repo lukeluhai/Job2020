@@ -12,7 +12,7 @@ while True:
         result=[]
         print('---------------------------------------------------------------')
         for dataFile in filePath:
-            print(filePath)
+            print(dataFile)
             f=open(defaultPath+dataFile,'rb')
             #f.__next__()
 
