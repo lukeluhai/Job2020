@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
+    "python.pythonPath": "C:\\python\\python.exe",
+    "python.formatting.provider": "black"
+=======
     "python.pythonPath": "C:\\Python\\Python36_64\\python.exe",
     "python.formatting.provider": "autopep8"
+>>>>>>> 51107ee848387171401d26a4bd8ffcd597b61129
 }
