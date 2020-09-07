@@ -34,9 +34,9 @@ def crawl_joke_list(page=1):
  #   print(mpage)
     m = pattern.findall(mpage.decode('utf-8', 'ignore'))
     print(m)
-    f = open('resgame_20191210_水野_' +
+    f = open('大嫌' +
              str(datetime.date.today().day) +
-             '.txt', 'a', encoding='utf-8')
+             '.csvcd ', 'a', encoding='utf-8')
 
     for i in m:
         print(i)
@@ -66,9 +66,9 @@ def crawl_joke_list(page=1):
 
 
 if __name__ == '__main__':
-    avname = 'https://www.cdnbus.in/star/92l/'
+    avname = 'https://www.cdnbus.in/search/%E9%83%A8%E4%B8%8B/'
 
-    for i in range(21, 100):
+    for i in range(1, 100):
        # try:
             print(avname + str(i))
             crawl_joke_list(avname + str(i))
