@@ -46,9 +46,9 @@ def crawl_joke_list(page=1):
 
 
 if __name__ == '__main__':
-    avname = 'https://www.cdnbus.in/genre/r/'
+    avname = 'https://www.fanbus.co/search/%E7%9B%B8%E9%83%A8%E5%B1%8B/'
 
-    for i in range(100, 200):
+    for i in range(1, 200):
         # try:
         print(avname + str(i))
         crawl_joke_list(avname + str(i))

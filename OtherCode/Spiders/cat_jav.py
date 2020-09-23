@@ -24,7 +24,7 @@ def crawl_joke_list(page=1):
         "User-Agent",
         'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36')
 
-    with urllib.request.urlopen(res, timeout=10) as mpage:
+    with urllib.request.urlopen(res, timeout=20) as mpage:
 
         mpage = mpage.read()
     pattern = re.compile(r'<a class=\"movie-box\" href=\"(.*?)\">.*?<div class=\"photo-frame\">.*?<img src=.*? title=\"(.*?)\">.*?</div>.*?<div class=\"photo-info\">.*?<span>.*?<br />.*?<div class=\"item-tag\">(.*?)</div>.*?<date>.*?</date> / <date>.*?</date>.*?</span>.*?</div>.*?</a>', re.S)
@@ -34,7 +34,7 @@ def crawl_joke_list(page=1):
  #   print(mpage)
     m = pattern.findall(mpage.decode('utf-8', 'ignore'))
     print(m)
-    f = open('大嫌' +
+    f = open('相部屋' +
              str(datetime.date.today().day) +
              '.csvcd ', 'a', encoding='utf-8')
 
@@ -45,10 +45,10 @@ def crawl_joke_list(page=1):
         res2.add_header(
             "User-Agent",
             'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36')
-        with urllib.request.urlopen(res2, timeout=10) as mpage2:
+        with urllib.request.urlopen(res2, timeout=20) as mpage2:
             mpage2 = mpage2.read()
         pattern2 = re.compile(
-            r'<span class=\"genre\"><a href=\"https://www.cdnbus.in/genre/.*?\">(.*?)</a></span>',
+            r'<span class=\"genre\"><a href=\"https://www.fanbus.co/genre/.*?\">(.*?)</a></span>',
             re.S)
         m2 = pattern2.findall(mpage2.decode('utf-8', 'ignore'))
         print(m2)
@@ -66,9 +66,9 @@ def crawl_joke_list(page=1):
 
 
 if __name__ == '__main__':
-    avname = 'https://www.cdnbus.in/search/%E9%83%A8%E4%B8%8B/'
+    avname = 'https://www.fanbus.co/search/%E7%9B%B8%E9%83%A8%E5%B1%8B/'
 
-    for i in range(1, 100):
+    for i in range(6, 100):
        # try:
             print(avname + str(i))
             crawl_joke_list(avname + str(i))
