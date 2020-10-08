@@ -1,5 +1,11 @@
-import time as t
-a=t.time()
-t.sleep(4)
-b=t.time()
-print(b-a)
+import pandas as pd
+import numpy as np
+
+
+a=pd.read_csv('e:\\temp\\MO.csv',encoding='GBK')
+
+print(type(a))
+print(a.shape)
+for i in range(9):
+    print(a[i][6])
+        

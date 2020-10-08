@@ -1,5 +1,6 @@
 {
-    "python.pythonPath": "D:\\anaconda3\\envs\\mypc\\python.exe",
-    "python.formatting.provider": "autopep8",
-    "terminal.integrated.shell.windows": "powershell.exe"
+
+    "python.pythonPath": "C:\\python\\python.exe",
+    "python.formatting.provider": "black"
+
 }
