@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 # Load the diabetes dataset 载入糖尿病数据
 diabetes = datasets.load_diabetes()
-
+print(diabetes)
 # 对于不同类型的数据集，有三种不同类型的数据集接口。最简单的是样品图像的界面，下面在 样本图片 部分中进行了描述。
 # 数据集生成函数和 svmlight 加载器分享了一个较为简化的接口，返回一个由 n_samples * n_features 组成的
 #  tuple (X, y) 其中的 X 是 numpy 数组 y 是包含目标值的长度为 n_samples 的数组
@@ -54,10 +54,10 @@ print("Mean squared error: %.2f"
 print('Variance score: %.2f' % r2_score(diabetes_y_test, diabetes_y_pred))
 
 # Plot outputs
-plt.scatter(diabetes_X_test, diabetes_y_test, color='black',label='x')
-plt.plot(diabetes_X_test, diabetes_y_pred, color='blue', linewidth=3,label='y')
+# plt.scatter(diabetes_X_test, diabetes_y_test, color='black',label='x')
+# plt.plot(diabetes_X_test, diabetes_y_pred, color='blue', linewidth=3,label='y')
 
-plt.xticks(())
-plt.yticks(())
-plt.legend()
-plt.show()
+# plt.xticks(())
+# plt.yticks(())
+# plt.legend()
+# plt.show()
