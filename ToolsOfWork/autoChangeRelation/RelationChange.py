@@ -5,9 +5,10 @@ path='E:\\relation\\'
 dfRelation=pd.read_csv(path+'RelationAll.csv','r',encoding='GBK',delimiter=',',header=0)
 dfRelation['newcol1']=dfRelation['子网ID'].map(str)+'-'+dfRelation['网元ID'].map(str)+'-'+dfRelation['E-UTRAN FDD小区ID'].map(str)+'-'+dfRelation['E-UTRAN邻接小区']
 dfRelation['newcol2']=dfRelation['E-UTRAN 邻接关系ID'].map(str)+'-'+dfRelation['重选时相邻小区对服务小区偏差'].map(str)+'-'+dfRelation['小区个体偏移'].map(str)
+print('dict relation....')
 dictRelation=dict(zip(dfRelation['newcol1'],dfRelation['newcol2']))
 
-print('dict relation....')
+
 dfCell=pd.read_csv(path+'CellAll.csv',encoding='GBK',delimiter=',',header=0)
 
 dfCell['newcol1']=dfCell['子网ID'].map(str)+'-'+dfCell['网元ID'].map(str)+'-'+dfCell['E-UTRAN FDD小区ID'].map(str)
