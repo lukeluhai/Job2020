@@ -1,7 +1,11 @@
+
 import numpy
 import pandas as pd
 import xlrd
 import random as rd
+import sys
+sys.path.append('d:\\myproject\\Job2020\\Job2020-1\\')
+import MyLib.ShowDataFrame as sdf
 
 def replacesignal(cgistr):
     return str(cgistr).replace(":", "-")
@@ -165,7 +169,16 @@ def IssueType(issue):
     if "当前KPI:RRC最大连接数[CONNMAX]" in str(issue):
         return "高负荷"
     return ""
-
+def midstr(timestr):
+    try:
+        return timestr[1:11]
+    except:
+        return ""
+def midstr2(timestr):
+    try:
+        return timestr[0:10]
+    except:
+        return ""
 
 df_Issue = pd.DataFrame(
     pd.read_excel("e:\\RealTimeWorkOrder\\数据\\问题点跟踪.xlsx", sheet_name="方案库附件表-总表"),
@@ -216,20 +229,45 @@ s2 = pd.merge(
 s3 = pd.merge(s2, df_CellInfo, left_on="E-UTRAN邻接小区", right_on="CGI", how="left")
 s4 = pd.merge(s3, df_AlarmList, left_on="小区标识", right_on="小区名称", how="left")
 s4["工单生成时间1"] = pd.to_numeric(pd.to_datetime(s4["工单生成时间"]))
+s4["工单生成"]=s4["工单生成时间"].map(midstr2)
+print(s4["工单生成"])
 s4["告警发生时间1"] = pd.to_numeric(pd.to_datetime(s4["告警发生时间"]))
 s4["告警消除时间1"] = pd.to_numeric(pd.to_datetime(s4["告警消除时间"]))
 s4["持续时间1"] = (s4["告警消除时间1"] - s4["告警发生时间1"]) / 1000 / 1000 / 1000 / 60 / 60 / 24
 s4["持续时间2"] = (s4["告警发生时间1"] - s4["工单生成时间1"]) / 1000 / 1000 / 1000 / 60 / 60 / 24
-# s4.to_csv("e:\\RealTimeWorkOrder\\s4.csv")
+
+sdf.showdataframe(s4,'s4')
 s42 = s4[s4["持续时间2"] < -0.5]
 s42 = s42[s42["持续时间2"] > -10]
+print(s4.dtypes)
+s42['告警时间']=s4['告警发生时间'].map(midstr)
+print(s42.dtypes)
+print(s42)
 # s42.to_csv("e:\\RealTimeWorkOrder\\s42.csv", header=True)
-s42 = pd.DataFrame(s42.groupby(["聚类工单序号", "问题小区名"])["持续时间1"].max())
+s42 = pd.DataFrame(s42.groupby(["聚类工单序号", "告警定位对象","告警时间"])["持续时间1"].sum())
+s42.reset_index(inplace=True)
+print('------------s42-----------' )
+print(s42.dtypes)
 
-s43 = pd.merge(s4, s42, left_on=["持续时间1"], right_on=["持续时间1"], how="inner")
+sdf.showdataframe(s42,'s42')
+s421 = pd.DataFrame(s42.groupby(["聚类工单序号"])["持续时间1"].max())
+s421.to_csv("e:\\RealTimeWorkOrder\\s421.csv", header=True)
+
+s421.reset_index(inplace=True)
+sdf.showdataframe(s421,'s421')
+print(s42)
+print('------------s421----------' )
+print(s421.dtypes)
+print(s421)
+
+s422=pd.merge(s421,s42,left_on=["聚类工单序号","持续时间1"], right_on=["聚类工单序号","持续时间1"], how="inner")
+s422.to_csv("e:\\RealTimeWorkOrder\\s422.csv", header=True)
+s4.rename(columns={"持续时间1":"持续时间11"},inplace=True)
+s43 = pd.merge(s4, s422, left_on=["聚类工单序号","告警定位对象"], right_on=["聚类工单序号","告警定位对象"], how="inner")
+s43.to_csv("e:\\RealTimeWorkOrder\\s43.csv")
 s43.drop_duplicates(subset=["聚类工单序号", "问题小区名"], inplace=True)
 # s43.to_csv("e:\\RealTimeWorkOrder\\s43.csv")
-
+sdf.showdataframe(s43,'s43')
 s43.drop(
     ["市领取人","cgi", "问题点指标", "工单生成时间", "子网ID", "网元ID", "E-UTRAN FDD小区ID", "用户标识"],
     axis=1,
@@ -426,5 +464,7 @@ s5['回调时间']=''
 pd_output=pd.DataFrame(s5,columns=["市领取人","聚类工单序号","网络类型","原因描述","原因分类","根本原因","方案分类","优化措施","方案模板","方案属性","回调时间","任务类型","调整小区","小区CGI","方案","问题小区名","问题点指标"])
 pd_output.columns=["领取人","问题点序号","网络类型","原因描述","原因分类","根本原因","方案分类","优化措施","方案模板","方案属性","回调时间","任务类型","调整小区","小区CGI","方案","问题小区名","问题点指标"]
 # s5.to_csv("e:\\RealTimeWorkOrder\\result.csv")
+sdf.showdataframe(pd_output,'pd_output')
 print('输出文件...')
 pd_output.to_excel('e:\\RealTimeWorkOrder\\output.xlsx',sheet_name="故障|干扰|其他",index=False)
+sdf.showDfGo()
